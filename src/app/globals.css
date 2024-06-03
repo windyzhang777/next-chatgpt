@@ -16,14 +16,26 @@
   }
 }
 
+html,
+body,
+#root,
+.app {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
+  padding: 1rem;
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
+  /* background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
 }
 
 @layer utilities {
