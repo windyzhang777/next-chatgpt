@@ -1,11 +1,4 @@
-import React, {
-  Dispatch,
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { useState } from "react";
 
 type PromptFormProps = {
   fetchOpenAI: (a: string) => void;
@@ -17,6 +10,7 @@ export const PromptForm = ({
   isFetching,
 }: PromptFormProps) => {
   const [prompt, setPrompt] = useState("");
+
   return (
     <form
       className="mt-2 flex gap-1 items-center"
@@ -30,9 +24,24 @@ export const PromptForm = ({
     >
       <input
         className="grow p-1 border rounded-sm"
-        type="text"
+        name="prompt"
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            setPrompt(
+              (e.target as HTMLTextAreaElement).value
+            );
+            e.preventDefault();
+            // validation
+            if (!(e.target as HTMLTextAreaElement).value)
+              return;
+            fetchOpenAI(
+              (e.target as HTMLTextAreaElement).value
+            );
+            setPrompt("");
+          }
+        }}
         placeholder="Ask a question..."
       />
       <input
