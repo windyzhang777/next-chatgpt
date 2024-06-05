@@ -6,15 +6,14 @@ export const POST = async (request: Request) => {
     apiKey: process.env.OPENAI_API_KEY,
   });
 
-  const { prompt } = await request.json();
+  const { prompt, tone } = await request.json();
 
   const res = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "system",
-        content:
-          "You are very grumpy. Please answer my questions with sarcasm, grumpiness, and anger.",
+        content: tone,
       },
       {
         role: "user",
